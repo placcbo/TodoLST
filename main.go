@@ -1,13 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"database/sql"
+	"time"
+)
 
-func add(a, b int) int {
-	return a + b
+type Todo struct {
+	Title     string    `json:"title"`
+	ID        int       `json:"id"`
+	Completed bool      `json:"completed"`
+	CreatedAt time.Time `json:"createdat"`
 }
-
-func main() {
-	result := add(10, 5)
-	fmt.Println(result)
-
+type TodoStore interface {
+	Create(title string) (Todo, error)
+	GetAll() ([]Todo, error)
+	GetByID(id int) (Todo, error)
+	Update(id int, done bool) (Todo, error)
+	Delete(id int) (Todo, error)
+}
+type PostgressStore struct{
+	db *sql.DB
 }
