@@ -18,6 +18,18 @@ type TodoStore interface {
 	Update(id int, done bool) (Todo, error)
 	Delete(id int) (Todo, error)
 }
-type PostgressStore struct{
+type PostgresStore struct{
 	db *sql.DB
+}
+
+func (s *PostgresStore) Create(title string) (Todo, error) { 
+
+}
+func (s *PostgresStore) GetAll() ([]Todo, error){
+
+
+}
+
+type handler struct{
+	store interface
 }
